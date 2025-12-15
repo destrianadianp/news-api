@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recreate_project/core/models/artikel_model.dart';
-import 'package:recreate_project/core/services/get_bitcoin_news_usecase.dart';
+import 'package:recreate_project/core/use_case/get_bitcoin_news_usecase.dart';
 
 class ListArtikelViewModel extends ChangeNotifier {
   final GetBitcoinNewsUsecase getNewsUseCase;

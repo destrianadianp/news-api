@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recreate_project/core/services/api_service.dart';
-import 'package:recreate_project/core/services/get_bitcoin_news_usecase.dart';
-import 'package:recreate_project/core/services/news_repository.dart';
+import 'package:recreate_project/core/use_case/get_bitcoin_news_usecase.dart';
+import 'package:recreate_project/core/repository/news_repository.dart';
 import 'package:recreate_project/core/styles/theme.dart';
 import 'package:recreate_project/di/dependency_injection.dart';
 import 'package:recreate_project/modules/list_artikel/view_model/list_artikel_view_model.dart';

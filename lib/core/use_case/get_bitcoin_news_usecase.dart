@@ -1,5 +1,5 @@
 import 'package:recreate_project/core/models/artikel_model.dart';
-import 'package:recreate_project/core/services/news_repository.dart';
+import 'package:recreate_project/core/repository/news_repository.dart';
 
 class GetBitcoinNewsUsecase {
   final NewsRepository repository;
