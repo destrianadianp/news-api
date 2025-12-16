@@ -29,4 +29,26 @@ class ApiService {
       throw Exception('Failed to load news: $e');
     }
   }
+
+  Future<List<ArtikelModel>> getSearchNews(String query) async {
+    final url = Uri.parse('$_baseUrl?q=$query&from=2025-12-15&sortBy=popularity&apiKey=$_apiKey');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: ApiHeaders.Headers
+      );
+      if (response.statusCode == 200) {
+        final jsonBody =  json.decode(response.body);
+        final searchResponse = ResponseModel.fromJson(jsonBody);
+
+        return searchResponse.articles;
+      } else {
+        throw Exception('Failed to load news. Status Code : ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load news: $e');
+    }
+  }
+
 }
