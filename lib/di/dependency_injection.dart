@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:recreate_project/core/services/api_service.dart';
 import 'package:recreate_project/core/use_case/get_bitcoin_news_usecase.dart';
 import 'package:recreate_project/core/repository/news_repository.dart';
+import 'package:recreate_project/core/use_case/get_search_news_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -14,4 +15,7 @@ void setupDependencies() {
 
   // Register UseCase
   getIt.registerSingleton(GetBitcoinNewsUsecase(getIt()));
+
+  //register searchnews usecase
+  getIt.registerSingleton(GetSearchNewsUsecase(getIt()));
 }
