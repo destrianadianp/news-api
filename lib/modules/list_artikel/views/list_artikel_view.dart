@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recreate_project/modules/list_artikel/view_model/list_artikel_view_model.dart';
-import 'package:recreate_project/modules/search_artikel/view_model/search_artikel_view_model.dart';
 import 'package:recreate_project/modules/search_artikel/components/searchbar.dart';
 
 import '../../../core/styles/app_colors.dart';
@@ -29,11 +28,12 @@ class _ListArtikelViewState extends State<ListArtikelView> {
     return Scaffold(
       body: Column(
         children: [
+          // Search bar at the top
           SearchBarComponent(
             onSearch: (String query) {
               if (query.isNotEmpty) {
-                // Trigger search in SearchArtikelViewModel
-                Provider.of<SearchArtikelViewModel>(context, listen: false).fetchSearchnews(query);
+                // Trigger search in the same ViewModel
+                Provider.of<ListArtikelViewModel>(context, listen: false).fetchSearchnews(query);
               } else {
                 // If query is empty, fetch the default bitcoin news again
                 Provider.of<ListArtikelViewModel>(context, listen: false).fetchBitcoinnews();
@@ -41,72 +41,35 @@ class _ListArtikelViewState extends State<ListArtikelView> {
             },
           ),
 
+          // Expanded list view to show articles
           Expanded(
-            child: Selector<SearchArtikelViewModel, (List<bool>, String?)>(
-              selector: (context, searchVm) => (searchVm.isLoading ? [true] : [false], searchVm.errorMessage),
-              builder: (context, searchState, child) {
-                final searchIsLoading = searchState.$1.first;
-                final searchErrorMessage = searchState.$2;
-
-                final searchVm = Provider.of<SearchArtikelViewModel>(context);
-                final hasSearchResults = searchVm.artikel.isNotEmpty;
-
-                if (searchIsLoading) {
+            child: Consumer<ListArtikelViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                // If there's a search error, show error message
-                if (searchErrorMessage != null) {
+                if (viewModel.errorMessage != null) {
                   return Center(
                     child: Text(
-                      'Search error: $searchErrorMessage',
+                      'Failed to load news: ${viewModel.errorMessage!}',
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: AppColors.error),
                     ),
                   );
                 }
 
-                // If there are search results, display them
-                if (hasSearchResults) {
-                  return ListView.builder(
-                    itemCount: searchVm.artikel.length,
-                    itemBuilder: (context, index) {
-                      final artikel = searchVm.artikel[index];
-                      return NewsCard(artikel: artikel);
-                    },
+                if (viewModel.artikel.isEmpty) {
+                  return const Center(
+                    child: Text('No articles found.'),
                   );
                 }
 
-                // fallback to the regular list view
-                return Consumer<ListArtikelViewModel>(
-                  builder: (context, viewModel, child) {
-                    if (viewModel.isLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    if (viewModel.errorMessage != null) {
-                      return Center(
-                        child: Text(
-                          'Failed to load news: ${viewModel.errorMessage!}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: AppColors.error),
-                        ),
-                      );
-                    }
-
-                    if (viewModel.artikel.isEmpty) {
-                      return const Center(
-                        child: Text('No articles found.'),
-                      );
-                    }
-
-                    return ListView.builder(
-                      itemCount: viewModel.artikel.length,
-                      itemBuilder: (context, index) {
-                        final artikel = viewModel.artikel[index];
-                        return NewsCard(artikel: artikel);
-                      },
-                    );
+                return ListView.builder(
+                  itemCount: viewModel.artikel.length,
+                  itemBuilder: (context, index) {
+                    final artikel = viewModel.artikel[index];
+                    return NewsCard(artikel: artikel);
                   },
                 );
               },

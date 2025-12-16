@@ -8,7 +8,6 @@ import 'package:recreate_project/core/use_case/get_search_news_usecase.dart';
 import 'package:recreate_project/di/dependency_injection.dart';
 import 'package:recreate_project/modules/list_artikel/view_model/list_artikel_view_model.dart';
 import 'package:recreate_project/modules/list_artikel/views/list_artikel_view.dart';
-import 'package:recreate_project/modules/search_artikel/view_model/search_artikel_view_model.dart';
 
 void main() {
   setupDependencies();
@@ -29,10 +28,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ListArtikelViewModel(
             getIt.get<GetBitcoinNewsUsecase>(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => SearchArtikelViewModel(
             getIt.get<GetSearchNewsUsecase>(),
           ),
         ),
