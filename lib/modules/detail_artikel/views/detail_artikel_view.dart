@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recreate_project/core/models/artikel_model.dart';
 import 'package:recreate_project/core/styles/custom_button.dart';
+import 'package:recreate_project/modules/web_view/controller/web_view_controller.dart';
 import '../../../core/utils/date_formatter.dart';
 
 import '../../../core/styles/app_colors.dart';
@@ -34,7 +35,7 @@ class DetailArtikelView extends StatelessWidget {
                 height: 200,
                 errorBuilder: (context, error, stackTrace) => Container(
                   height: 200,
-                  color: AppColors.secondary.withOpacity(0.1),
+                  color: AppColors.secondary.withValues(alpha: 0.1),
                   child: const Center(
                     child: Icon(Icons.image_not_supported, size: 60, color: Colors.grey),
                   ),
@@ -85,9 +86,20 @@ class DetailArtikelView extends StatelessWidget {
             Center(
               child: CustomButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Showing full summary for: ${artikel.title}')),
-                  );
+                  // Check if URL is valid before navigating
+                  if (artikel.url.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewsWebViewPage(url: artikel.url, title: artikel.title)
+                      ),
+                    );
+                  } else {
+                    // Show error if URL is not available
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('URL tidak ditemukan untuk artikel ini')),
+                    );
+                  }
                 },
               ),
             ),
