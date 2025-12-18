@@ -82,8 +82,7 @@ class _NewsWebViewPageState extends State<NewsWebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _handleWillPop,
+    return PopScope(
       child: Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
