@@ -83,6 +83,13 @@ class _NewsWebViewPageState extends State<NewsWebViewPage> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
+      canPop: false, // Mencegah pop otomatis
+      onPopInvoked: (bool didPop) async {
+        // Handle back button pressed
+        if (!didPop) {
+          await _handlePopScope();
+        }
+      },
       child: Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
@@ -90,7 +97,7 @@ class _NewsWebViewPageState extends State<NewsWebViewPage> {
     );
   }
 
-  Future<bool> _handleWillPop() async {
+  Future<bool> _handlePopScope() async {
     if (await _controller.canGoBack()) {
       _controller.goBack();
       return false;
