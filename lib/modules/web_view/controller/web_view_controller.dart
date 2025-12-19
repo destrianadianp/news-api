@@ -84,12 +84,17 @@ class _NewsWebViewPageState extends State<NewsWebViewPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false, // Mencegah pop otomatis
-      onPopInvoked: (bool didPop) async {
-        // Handle back button pressed
+      onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          await _handlePopScope();
+          _handlePopScope();
         }
       },
+      // onPopInvoked: (bool didPop) async {
+      //   // Handle back button pressed
+      //   if (!didPop) {
+      //     await _handlePopScope();
+      //   }
+      // },
       child: Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
