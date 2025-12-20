@@ -89,12 +89,7 @@ class _NewsWebViewPageState extends State<NewsWebViewPage> {
           _handlePopScope();
         }
       },
-      // onPopInvoked: (bool didPop) async {
-      //   // Handle back button pressed
-      //   if (!didPop) {
-      //     await _handlePopScope();
-      //   }
-      // },
+     
       child: Scaffold(
         appBar: _buildAppBar(),
         body: _buildBody(),
