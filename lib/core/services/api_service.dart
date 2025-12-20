@@ -15,7 +15,7 @@ class ApiService {
     try {
       final response = await http.get(
         url,
-        headers: ApiHeaders.Headers
+        headers: ApiHeaders.headers
       );
       if (response.statusCode == 200) {
         final jsonBody =  json.decode(response.body);
@@ -36,7 +36,7 @@ class ApiService {
     try {
       final response = await http.get(
         url,
-        headers: ApiHeaders.Headers
+        headers: ApiHeaders.headers
       );
       if (response.statusCode == 200) {
         final jsonBody =  json.decode(response.body);

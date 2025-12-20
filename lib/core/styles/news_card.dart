@@ -40,7 +40,7 @@ class NewsCard extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) => Container(
                     width: 100,
                     height: 100,
-                    color: AppColors.secondary.withOpacity(0.1),
+                    color: AppColors.secondary.withValues(alpha: 0.1),
                     child: const Icon(Icons.image_not_supported, color: Colors.grey),
                   ),
                 ),
@@ -70,7 +70,7 @@ class NewsCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 13,
-                        color: AppColors.secondary.withOpacity(0.8),
+                        color: AppColors.secondary.withValues(alpha: 0.8),
                       ),
                     ),
                     const SizedBox(height: 8),

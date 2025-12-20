@@ -6,10 +6,10 @@ class SearchBarComponent extends StatefulWidget {
   final TextEditingController? controller; 
 
   const SearchBarComponent({
-    Key? key,
     required this.onSearch,
     this.controller,
-  }) : super(key: key);
+    super.key
+  });
 
   @override
   State<SearchBarComponent> createState() => _SearchBarComponentState();

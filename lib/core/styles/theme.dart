@@ -10,7 +10,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
       error: AppColors.error,
     ),
     appBarTheme: const AppBarTheme(
-      color: AppColors.primary,
+      backgroundColor: AppColors.primary,
       elevation: 0,
       titleTextStyle: TextStyle(
         color: AppColors.textLight,
