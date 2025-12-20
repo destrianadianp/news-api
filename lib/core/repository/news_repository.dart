@@ -16,7 +16,7 @@ class NewsRepositoryImpl implements NewsRepository {
     return await apiService.getBitcoinNews();
   }
 
-
+  @override
   Future<List<ArtikelModel>> fetchSearchnews(String query) async {
     try {
       final artikel = await apiService.getSearchNews(query);
